@@ -1,0 +1,57 @@
+#Atualizações
+
+- name: upgrade all packages
+  yum: name=* state=latest
+
+- name: Instalação de pacotes
+  yum:
+    name: "{{ packages }}"
+  vars:
+   packages:
+     - net-tools
+     - vim
+     - nmap
+     - git
+
+#Instalando pip com python3
+- name: Instalando pip com python3
+  shell: yum install python3-pip -y
+
+#Instalação do Flask (Python)
+- name: Instalando o Flask
+  shell: pip3 install Flask
+
+#- name: Installing multiple python packages in Ansible
+#  pip3:
+#    name: Flask
+
+#Instalando REQUESTS
+- name: Instalando requests
+  shell: pip3 install requests
+
+#Clonando repositório
+- name: Clonando repositório do GIT com o CRUD em API REST
+  shell: git clone https://github.com/GabrielSBrito/TesteEveris; mv TesteEveris/ /tmp
+  ignore_errors: yes
+
+#Configurar porta 8080
+- name: Configurar a porta
+  command: "{{ item }}"
+  with_items:
+  - netstat -ln | grep 8080
+  - netstat -tulpn
+
+#Executando o Flask
+- name: Executando o flask em background para rodar os comandos de alteração do CRUD
+  shell: nohup python3 /tmp/TesteEveris/CRUD/Server.py &
+
+#Executando arquivos python para CRUD
+- name: Comandos Python CRUD -  Inserir usuários, Deletar o usuário e Alterar os dados do usuário
+  command: "{{ item }}"
+  with_items:
+  - python3  /tmp/TesteEveris/CRUD/ClienteCadastrarUsuario.py
+  - curl -v http://localhost:8080/usuarios
+  - python3  /tmp/TesteEveris/CRUD/Cliente_DeletarUsuario.py
+  - curl -v http://localhost:8080/usuarios
+  - python3  /tmp/TesteEveris/CRUD/Cliente_AlterarUsuario.py
+  - curl -v http://localhost:8080/usuarios
