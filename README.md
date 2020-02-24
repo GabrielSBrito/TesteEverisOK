@@ -14,5 +14,5 @@ Em uma máquina com o ansible instalado:
 - Executar o comando para iniciar o processo: ansible-playbook plabook.yml
 - Aguardar tudo ser executado.
 
-- Diretório com vídeos mostrando o processo que eu executei: 
+- Diretório com vídeo mostrando o processo que eu executei: 
 https://drive.google.com/open?id=1WHcllzQSmqsjjxtbEpr9jbBm6toeTfNk
